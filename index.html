@@ -15,74 +15,211 @@
         }
 
         body {
-            background-color: #f5f7fa;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #333;
             line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px 0;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h1 {
             color: #2c3e50;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
 
         .subtitle {
             color: #7f8c8d;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         .upload-section {
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
             text-align: center;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .upload-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
 
         .upload-area {
-            border: 2px dashed #3498db;
-            border-radius: 10px;
-            padding: 40px;
-            transition: all 0.3s ease;
+            border: 3px dashed #3498db;
+            border-radius: 15px;
+            padding: 50px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.6s ease;
+        }
+
+        .upload-area:hover::before {
+            transform: scale(1);
         }
 
         .upload-area:hover {
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.05) 0%, rgba(41, 128, 185, 0.1) 100%);
             border-color: #2980b9;
+            transform: scale(1.02);
         }
 
         .upload-area.dragover {
-            background-color: #ebf5fb;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(41, 128, 185, 0.2) 100%);
             border-color: #2980b9;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
         .upload-icon {
-            font-size: 48px;
+            font-size: 64px;
             color: #3498db;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
         }
 
         .upload-text {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 10px;
+            font-weight: 600;
         }
 
         .upload-subtext {
             color: #7f8c8d;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-size: 1rem;
         }
 
         .file-input {
@@ -90,136 +227,280 @@
         }
 
         .btn {
-            background-color: #3498db;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 5px;
+            padding: 14px 28px;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn:hover {
-            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
         }
 
         .btn-success {
-            background-color: #2ecc71;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
         }
 
         .btn-success:hover {
-            background-color: #27ae60;
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
         }
 
         .btn-danger {
-            background-color: #e74c3c;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
         }
 
         .btn-danger:hover {
-            background-color: #c0392b;
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
         }
 
         .pdf-section {
             display: none;
-            background-color: white;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .pdf-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
         }
 
         .pdf-name {
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pdf-icon {
+            font-size: 1.8rem;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .page-count {
             color: #7f8c8d;
+            font-size: 1.1rem;
+            background: #f8f9fa;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid #e9ecef;
         }
 
         .pages-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .pages-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .pages-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .pages-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .pages-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
 
         .page-item {
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 2px solid #ddd;
+            border-radius: 15px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            background: white;
+            animation: pageAppear 0.5s ease-out both;
+        }
+
+        @keyframes pageAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8) rotate(5deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
         }
 
         .page-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-color: #3498db;
         }
 
         .page-item.selected {
-            border: 2px solid #e74c3c;
+            border: 3px solid #e74c3c;
+            animation: selectPulse 0.5s ease-out;
+        }
+
+        @keyframes selectPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
 
         .page-item.selected::after {
             content: "✓";
             position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: #e74c3c;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
-            width: 24px;
-            height: 24px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 10px rgba(231, 76, 60, 0.4);
+            animation: checkmarkAppear 0.3s ease-out;
+        }
+
+        @keyframes checkmarkAppear {
+            from {
+                transform: scale(0) rotate(-180deg);
+            }
+            to {
+                transform: scale(1) rotate(0deg);
+            }
         }
 
         .page-thumbnail {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: contain;
-            background-color: #f8f9fa;
+            background: #f8f9fa;
+            transition: transform 0.3s ease;
+        }
+
+        .page-item:hover .page-thumbnail {
+            transform: scale(1.05);
         }
 
         .page-number {
-            padding: 8px;
+            padding: 12px;
             text-align: center;
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             font-weight: bold;
+            color: #495057;
+            font-size: 1rem;
         }
 
         .actions {
             display: flex;
             justify-content: space-between;
-            gap: 15px;
+            gap: 20px;
+            animation: fadeIn 0.8s ease-out 0.5s both;
         }
 
         .notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            background-color: #2ecc71;
+            top: 30px;
+            right: 30px;
+            padding: 18px 25px;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
             color: white;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transform: translateX(150%);
-            transition: transform 0.3s ease;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateX(400px);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             z-index: 1000;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification::before {
+            content: "✓";
+            font-size: 1.5rem;
+            animation: checkBounce 0.5s ease-out;
+        }
+
+        @keyframes checkBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
         }
 
         .notification.show {
@@ -227,23 +508,42 @@
         }
 
         .notification.error {
-            background-color: #e74c3c;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+
+        .notification.error::before {
+            content: "⚠";
         }
 
         .loading {
             display: none;
             text-align: center;
-            padding: 20px;
+            padding: 40px;
+            animation: fadeIn 0.5s ease-out;
         }
 
         .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
+            border: 5px solid rgba(0, 0, 0, 0.1);
             border-radius: 50%;
-            border-top: 4px solid #3498db;
-            width: 40px;
-            height: 40px;
+            border-top: 5px solid #3498db;
+            width: 60px;
+            height: 60px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .spinner::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 5px solid transparent;
+            border-top-color: #2980b9;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite reverse;
         }
 
         @keyframes spin {
@@ -251,18 +551,59 @@
             100% { transform: rotate(360deg); }
         }
 
+        .loading-text {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            animation: pulse 1.5s infinite;
+        }
+
         @media (max-width: 768px) {
             .pages-container {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 15px;
             }
             
             .actions {
                 flex-direction: column;
             }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .upload-area {
+                padding: 30px;
+            }
+            
+            .notification {
+                right: 20px;
+                left: 20px;
+                transform: translateY(-100px);
+            }
+            
+            .notification.show {
+                transform: translateY(0);
+            }
+        }
+
+        /* Page removal animation */
+        .page-removing {
+            animation: pageRemove 0.5s ease-out forwards;
+        }
+
+        @keyframes pageRemove {
+            to {
+                opacity: 0;
+                transform: scale(0.8) rotate(10deg);
+                filter: blur(5px);
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Animated background particles -->
+    <div class="particles" id="particles"></div>
+
     <div class="container">
         <header>
             <h1>PDF Page Remover</h1>
@@ -281,12 +622,15 @@
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p>Processing your PDF...</p>
+            <p class="loading-text">Processing your PDF...</p>
         </div>
 
         <section class="pdf-section" id="pdfSection">
             <div class="pdf-info">
-                <div class="pdf-name" id="pdfName">document.pdf</div>
+                <div class="pdf-name">
+                    <span class="pdf-icon">📋</span>
+                    <span id="pdfName">document.pdf</span>
+                </div>
                 <div class="page-count" id="pageCount">0 pages</div>
             </div>
             
@@ -320,12 +664,31 @@
         const removeBtn = document.getElementById('removeBtn');
         const downloadBtn = document.getElementById('downloadBtn');
         const notification = document.getElementById('notification');
+        const particles = document.getElementById('particles');
 
         // State variables
         let pdfDoc = null;
         let selectedPages = new Set();
         let originalPdfBytes = null;
         let modifiedPdfBytes = null;
+
+        // Create animated particles
+        function createParticles() {
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 10 + 5 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = Math.random() * 10 + 15 + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles();
 
         // Event listeners
         uploadArea.addEventListener('click', () => fileInput.click());
@@ -423,6 +786,7 @@
                 const pageItem = document.createElement('div');
                 pageItem.className = 'page-item';
                 pageItem.dataset.pageNum = pageNum;
+                pageItem.style.animationDelay = `${(pageNum - 1) * 0.1}s`;
                 
                 const thumbnail = document.createElement('img');
                 thumbnail.src = canvas.toDataURL();
@@ -475,6 +839,18 @@
             showLoading(true);
             
             try {
+                // Animate page removal
+                const pageItems = pagesContainer.querySelectorAll('.page-item');
+                pageItems.forEach(item => {
+                    const pageNum = parseInt(item.dataset.pageNum);
+                    if (selectedPages.has(pageNum)) {
+                        item.classList.add('page-removing');
+                    }
+                });
+                
+                // Wait for animation to complete
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
                 // Load the PDF with PDF-lib for modification
                 const pdfDoc = await PDFLib.PDFDocument.load(originalPdfBytes);
                 
@@ -518,8 +894,9 @@
                     item.querySelector('.page-number').textContent = `Page ${currentPageNum}`;
                     currentPageNum++;
                 } else {
-                    item.style.opacity = '0.5';
+                    item.style.opacity = '0.3';
                     item.style.pointerEvents = 'none';
+                    item.style.transform = 'scale(0.9)';
                 }
             });
         }
